@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ve.edu.ucab.proyectoprogramacion.controller.AppViewController">
+<children>
+<MenuBar prefHeight="0.0" prefWidth="540.0" VBox.vgrow="NEVER">
+<menus>
+    <Menu mnemonicParsing="false" text="Opciones">
+        <items>
+            <MenuItem fx:id="perfilItem" mnemonicParsing="false" onAction="#onSelectedPerfilItem" text="Perfil" />
+            <MenuItem mnemonicParsing="false" onAction="#onSelectedfondearCuentaItem" text="Fondear cuenta" />
+            <MenuItem mnemonicParsing="false" onAction="#onSelectedcatalogoActivoItem" text="Catalogo de Activos" />
+            <MenuItem mnemonicParsing="false" onAction="#onSelectedoperacionesItem" text="Operaciones" />
+            <MenuItem mnemonicParsing="false" onAction="#onSelectedportafolioItem" text="Portafolio" />
+        </items>
+    </Menu>
+</menus>
+</MenuBar>
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Pane id="perfilPanel" fx:id="perfilPane" layoutY="-2.0" prefHeight="374.0" prefWidth="640.0" visible="false">
+               <children>
+                  <Button fx:id="registroButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSelectedregistroUsuarioItem" text="Registro o selección de usuario" />
+                  <Button layoutX="544.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClickmostrarlistaButton" text="Mostrar lista" />
+               </children>
+            </Pane>
+            <Pane id="perfilPanel" fx:id="fondearPane" prefHeight="374.0" prefWidth="640.0" visible="false">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Fondear la cuenta" />
+               </children>
+            </Pane>
+            <Pane fx:id="catalogoActivoPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label text="Catalogo de Activos" />
+               </children>
+            </Pane>
+            <Pane fx:id="operacionesPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label text="Operaciones" />
+               </children>
+            </Pane>
+            <Pane fx:id="portafolioPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label text="Portafolio" />
+               </children>
+            </Pane>
+            <Pane fx:id="registroPane" prefHeight="365.0" prefWidth="630.0" visible="false">
+               <children>
+                  <TextField fx:id="nombreUsuario" layoutX="70.0" layoutY="47.0" />
+                  <Label layoutX="70.0" layoutY="24.0" text="Ingrese su usuario:" />
+                  <Label layoutX="70.0" layoutY="104.0" text="Ingrese su ID:" />
+                  <TextField fx:id="idUsuario" layoutX="70.0" layoutY="128.0" />
+                  <Label layoutX="70.0" layoutY="183.0" text="Ingrese su saldo inicial:" />
+                  <TextField fx:id="saldoInicialUsuario" layoutX="70.0" layoutY="209.0" />
+                  <Button layoutX="70.0" layoutY="269.0" mnemonicParsing="false" onAction="#onSelectedaceptarItem" text="Aceptar" />
+                  <Button layoutX="67.0" layoutY="304.0" mnemonicParsing="false" onAction="#onSelectedPerfilItem" text="Cancelar" />
+                  <Label fx:id="errornombre" layoutX="315.0" layoutY="51.0" text="No coloco nombre, ingrese para continuar" textFill="#f70505" visible="false" />
+                  <Label fx:id="errorid" layoutX="317.0" layoutY="132.0" text="No coloco ID, ingrese para continuar" textFill="#ff0101" visible="false" />
+                  <Label fx:id="errorsaldo" layoutX="292.0" layoutY="213.0" text="No coloco saldo inicial, ingrese para continuar" textFill="RED" visible="false" />
+                  <Label fx:id="errorsaldonumero" layoutX="292.0" layoutY="234.0" text="saldo no es numero valido" textFill="RED" visible="false" />
+               </children>
+            </Pane>
+         </children>
+</AnchorPane>
+</children>
+</VBox>
