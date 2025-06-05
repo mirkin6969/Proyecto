@@ -1,20 +1,20 @@
 package ve.edu.ucab.proyectoprogramacion.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import ve.edu.ucab.proyectoprogramacion.model.Usuario;
+import ve.edu.ucab.proyectoprogramacion.model.activos.Activo;
 
 import java.util.List;
 
 public class AppViewController {
 
     private UsuarioController usuarioController = new UsuarioController();
-
-    @FXML
-    private Label welcomeText;
 
     @FXML
     private Pane perfilPane;
@@ -35,7 +35,25 @@ public class AppViewController {
     private Pane registroPane;
 
     @FXML
-    private Button registroButton;
+    private Pane fondearcuentasecundario;
+
+    @FXML
+    private Pane operacionesComprar;
+
+    @FXML
+    private Pane operacionesVender;
+
+    @FXML
+    private Pane usuarioLogIn;
+
+    @FXML
+    private ComboBox comboSeleccionActivo;
+
+    @FXML
+    private ComboBox combolistausuarios;
+
+    @FXML
+    private TextField nuevosaldousuario;
 
     @FXML
     private TextField nombreUsuario;
@@ -48,17 +66,15 @@ public class AppViewController {
 
     @FXML
     private Label errornombre;
-    @FXML
-    private Label errorid;
-    @FXML
-    private Label errorsaldo;
-    @FXML
-    private Label errorsaldonumero;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private Label errorid;
+
+    @FXML
+    private Label errorsaldo;
+
+    @FXML
+    private Label errorsaldonumero;
 
     // onSelectedPerfilItem
     @FXML
@@ -96,11 +112,10 @@ public class AppViewController {
         this.portafolioPane.setVisible(true);
     }
 
-    //@FXML
-    //private void onSelectedregistroItem(){
-     //   System.out.println("Estoy aqui");
-    //}
-
+    @FXML
+    protected void onSelectedcatalogoactivos(){
+        ActivoSingleTone.getInstance().imprimirActivos();
+    }
 
     @FXML
     protected void onSelectedaceptarItem(){
@@ -136,7 +151,7 @@ public class AppViewController {
         usuario.setSaldoInicial(Integer.parseInt(this.saldoInicialUsuario.getText()));
 
         // catgando el usuario en la lista
-        UsuarioSingleToneController.getInstance().add(usuario);
+        UsuarioSingleTone.getInstance().add(usuario);
 
         // limpio el formulario
         this.nombreUsuario.setText("");
@@ -149,13 +164,58 @@ public class AppViewController {
 
     @FXML
     protected void onClickmostrarlistaButton(){
-        UsuarioSingleToneController.getInstance().showList();
+        UsuarioSingleTone.getInstance().showList();
     }
 
     @FXML
     protected void onSelectedregistroUsuarioItem(){
         this.apagarPaneles();
         this.registroPane.setVisible(true);
+    }
+
+    @FXML
+    protected void onClickfondearcuenta(){
+        this.apagarPaneles();
+        List<Usuario> lista= UsuarioSingleTone.getInstance().obtenerUsuarios();
+        if (lista == null){
+            this.fondearcuentasecundario.setVisible(true);
+            return;
+        }
+        for(Usuario tmp : lista){
+            this.combolistausuarios.setItems(FXCollections.observableList(lista));
+        }
+        this.fondearcuentasecundario.setVisible(true);
+    }
+
+    @FXML
+    protected void onSelectedaceptarItemfondearcuenta(){
+        this.apagarPaneles();
+        Usuario usuario = (Usuario)this.combolistausuarios.getValue();
+        Integer nuevosaldo = Integer.parseInt(this.nuevosaldousuario.getText());
+        usuario.setSaldoInicial(nuevosaldo + usuario.getSaldoInicial());
+    }
+
+    @FXML
+    protected void onSelectedcompraractivoItem(){
+        this.apagarPaneles();
+        List<Activo> lista = ActivoSingleTone.getInstance().obtenerActivos();
+        if(lista == null){
+            this.operacionesComprar.setVisible(true);
+            return;
+        }
+        this.comboSeleccionActivo.setItems(FXCollections.observableList(lista));
+        this.operacionesComprar.setVisible(true);
+    }
+
+    @FXML
+    protected void onSelectedvenderactivoItem(){
+        this.apagarPaneles();
+
+    }
+
+    @FXML
+    protected void onClickcomprarActivo(){
+
     }
 
     private void apagarPaneles(){
@@ -165,6 +225,9 @@ public class AppViewController {
         this.operacionesPane.setVisible(false);
         this.portafolioPane.setVisible(false);
         this.registroPane.setVisible(false);
+        this.fondearcuentasecundario.setVisible(false);
+        this.operacionesVender.setVisible(false);
+        this.operacionesComprar.setVisible(false);
     }
 
 

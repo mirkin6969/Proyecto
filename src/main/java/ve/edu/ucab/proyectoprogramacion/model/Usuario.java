@@ -1,9 +1,14 @@
 package ve.edu.ucab.proyectoprogramacion.model;
 
+import ve.edu.ucab.proyectoprogramacion.model.activos.Activo;
+
+import java.util.List;
+
 public class Usuario {
     private String nombre;
     private String id;
     private int saldoInicial;
+    private List<Activo> listaActivos;
 
     public String getNombre() {
         return nombre;
@@ -27,5 +32,9 @@ public class Usuario {
 
     public void setSaldoInicial(int saldoInicial) {
         this.saldoInicial = saldoInicial;
+    }
+
+    public String toString(){
+        return this.getNombre();
     }
 }

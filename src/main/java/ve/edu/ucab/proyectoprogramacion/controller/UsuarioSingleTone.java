@@ -5,15 +5,15 @@ import ve.edu.ucab.proyectoprogramacion.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioSingleToneController {
+public class UsuarioSingleTone {
 
     private List<Usuario> usuarioList;
 
-    private static UsuarioSingleToneController instance;
+    private static UsuarioSingleTone instance;
 
-    public static UsuarioSingleToneController getInstance() {
+    public static UsuarioSingleTone getInstance() {
         if (instance == null) {
-            instance = new UsuarioSingleToneController();
+            instance = new UsuarioSingleTone();
         }
         return instance;
     }
@@ -34,5 +34,9 @@ public class UsuarioSingleToneController {
         for (Usuario tmp: this.usuarioList) {
             System.out.println(tmp.getId() + " - " + tmp.getNombre() + " - " + tmp.getSaldoInicial());
         }
+    }
+
+    public List<Usuario> obtenerUsuarios(){
+        return usuarioList;
     }
 }

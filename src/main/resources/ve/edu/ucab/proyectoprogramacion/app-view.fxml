@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -59,6 +60,12 @@
 </MenuBar>
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
+            <Pane fx:id="operacionesComprar" prefHeight="374.0" prefWidth="640.0" visible="false">
+               <children>
+                  <ComboBox fx:id="comboSeleccionActivo" layoutX="53.0" layoutY="61.0" prefWidth="150.0" />
+                  <Button layoutX="75.0" layoutY="139.0" mnemonicParsing="false" onAction="#onClickcomprarActivo" text="Agregar a cuenta" />
+               </children>
+            </Pane>
             <Pane id="perfilPanel" fx:id="perfilPane" layoutY="-2.0" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
                   <Button fx:id="registroButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSelectedregistroUsuarioItem" text="Registro o selección de usuario" />
@@ -68,19 +75,23 @@
             <Pane id="perfilPanel" fx:id="fondearPane" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Fondear la cuenta" />
+                  <Button layoutX="6.0" layoutY="56.0" mnemonicParsing="false" onAction="#onClickfondearcuenta" text="Fondear la cuenta" />
                </children>
             </Pane>
-            <Pane fx:id="catalogoActivoPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="catalogoActivoPane" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
                   <Label text="Catalogo de Activos" />
+                  <Button fx:id="catalogoactivos" layoutX="27.0" layoutY="55.0" mnemonicParsing="false" onAction="#onSelectedcatalogoactivos" text="Mostrar activos" />
                </children>
             </Pane>
-            <Pane fx:id="operacionesPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="operacionesPane" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
-                  <Label text="Operaciones" />
+                  <Label layoutX="42.0" layoutY="33.0" text="Operaciones" />
+                  <Button layoutX="42.0" layoutY="83.0" mnemonicParsing="false" onAction="#onSelectedcompraractivoItem" text="Comprar" />
+                  <Button layoutX="42.0" layoutY="129.0" mnemonicParsing="false" onAction="#onSelectedvenderactivoItem" text="Vender" />
                </children>
             </Pane>
-            <Pane fx:id="portafolioPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="portafolioPane" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
                   <Label text="Portafolio" />
                </children>
@@ -99,6 +110,20 @@
                   <Label fx:id="errorid" layoutX="317.0" layoutY="132.0" text="No coloco ID, ingrese para continuar" textFill="#ff0101" visible="false" />
                   <Label fx:id="errorsaldo" layoutX="292.0" layoutY="213.0" text="No coloco saldo inicial, ingrese para continuar" textFill="RED" visible="false" />
                   <Label fx:id="errorsaldonumero" layoutX="292.0" layoutY="234.0" text="saldo no es numero valido" textFill="RED" visible="false" />
+               </children>
+            </Pane>
+            <Pane fx:id="fondearcuentasecundario" prefHeight="374.0" prefWidth="640.0" visible="false">
+               <children>
+                  <Label layoutX="172.0" layoutY="170.0" text="Agregue cantidad a fondear" />
+                  <TextField fx:id="nuevosaldousuario" layoutX="172.0" layoutY="211.0" />
+                  <Button layoutX="172.0" layoutY="260.0" mnemonicParsing="false" onAction="#onSelectedaceptarItemfondearcuenta" text="Aceptar" />
+                  <Label layoutX="172.0" layoutY="36.0" text="Seleccione el usuario a fondear" />
+                  <ComboBox fx:id="combolistausuarios" layoutX="170.0" layoutY="65.0" prefWidth="150.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="operacionesVender" prefHeight="374.0" prefWidth="640.0" visible="false">
+               <children>
+                  <ComboBox fx:id="seleccionActivo" layoutX="59.0" layoutY="44.0" prefWidth="150.0" />
                </children>
             </Pane>
          </children>
