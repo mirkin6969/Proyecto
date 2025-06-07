@@ -50,6 +50,7 @@ public class ActivoSingleTone {
         }
     }
 
+    //Devuelve la lista de los activos
     public List<Activo> obtenerActivos(){
         return listaActivos;
     }

@@ -6,4 +6,5 @@ public class Accion extends Activo{
     public Accion(String nombre, String simbolo, double precioActual) {
         super(nombre, simbolo, precioActual);
     }
+
 }
