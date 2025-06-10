@@ -1,6 +1,7 @@
 module ve.edu.ucab.proyectoprogramacion {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
 
     opens ve.edu.ucab.proyectoprogramacion to javafx.fxml;
