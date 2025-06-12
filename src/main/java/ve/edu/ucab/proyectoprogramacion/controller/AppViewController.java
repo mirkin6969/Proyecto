@@ -53,7 +53,10 @@ public class AppViewController {
     private ComboBox comboSeleccionActivo;
 
     @FXML
-    private ComboBox comboSeleccionActivoVenta;
+    private ComboBox comboSeleccionAccionVenta;
+
+    @FXML
+    private ComboBox comboSeleccionCriptomonedaVenta;
 
     @FXML
     private TextField nuevosaldousuario;
@@ -75,6 +78,9 @@ public class AppViewController {
 
     @FXML
     private TextField contrasenaUsuarioLogIn;
+
+    @FXML
+    private TextField cantidadaComprar;
 
     @FXML
     private Label errornombre;
@@ -108,6 +114,9 @@ public class AppViewController {
 
     @FXML
     private Label saldoInsuficienteCompra;
+
+    @FXML
+    private Label noPoseeActivosVenta;
 
     // Muestra el panel principal de perfil
     @FXML
@@ -307,13 +316,62 @@ public class AppViewController {
     @FXML
     protected void onSelectedvenderactivoItem(){
         this.apagarPaneles();
+        Usuario usuarioActual = UsuarioSingleTone.getInstance().getCurrentUser();
+        List<Activo> listaAccion = usuarioActual.getListaAcciones();
+        List<Activo> listaCripto = usuarioActual.getListaCriptomonedas();
+        if (usuarioActual.getListaCriptomonedas().isEmpty() && usuarioActual.getListaAcciones().isEmpty()){
+            this.noPoseeActivosVenta.setVisible(true);
+        } else {
+            this.comboSeleccionAccionVenta.setItems(FXCollections.observableList(listaAccion));
+            this.comboSeleccionCriptomonedaVenta.setItems(FXCollections.observableList(listaCripto));
+            this.operacionesVender.setVisible(true);
+        }
+    }
 
+    //Lo que ocurre cuando le de al boton de vender
+    @FXML
+    protected void onClickvenderActivo() {
+
+        //Apaga los paneles al ingresar
+        this.apagarPaneles();
+        Usuario usuarioActual = UsuarioSingleTone.getInstance().getCurrentUser();
+
+        //Pregunta si en efecto hay un usuario logeado, sino lo lleva a que se registre
+        if (usuarioActual == null) {
+            this.apagarPaneles();
+            this.registroPane.setVisible(true);
+            return;
+        }
+
+        //Obtenemos el valor de la seleccion del comboBox de accion
+        Accion accion = (Accion) this.comboSeleccionAccionVenta.getValue();
+
+        //Obtenemos el valor de la seleccion del comboBox de cripto
+        Criptomoneda criptomoneda = (Criptomoneda) this.comboSeleccionCriptomonedaVenta.getValue();
+
+        //Comprueba si el usuario actual tiene la accion, de ser asi la quita de su lista de acciones
+        if (usuarioActual.tieneAccion(accion)) {
+            usuarioActual.quitarAccion(accion);
+            double nuevoSaldo = usuarioActual.getSaldoInicial() + accion.getPrecioActual();
+            usuarioActual.setSaldoInicial((int) nuevoSaldo);
+            this.operacionesPane.setVisible(true);
+        }
+
+        //Comprueba si el usuario actual tiene la cripto, de ser asi la quita de su lista de criptos-
+        if (usuarioActual.tieneCripto(criptomoneda)){
+            usuarioActual.quitarCripto(criptomoneda);
+            double nuevoSaldo = usuarioActual.getSaldoInicial() + criptomoneda.getPrecioActual();
+            usuarioActual.setSaldoInicial((int) nuevoSaldo);
+            this.operacionesPane.setVisible(true);
+        }
+        this.operacionesPane.setVisible(true);
     }
 
     //Boton para que cuando le de a comprar en la pestana activos me lleve a la ventana donde me permita comprar los activos del usuario que esta logeado
     @FXML
     protected void onSelectedcompraractivoItem(){
         this.apagarPaneles();
+        this.saldoInsuficienteCompra.setVisible(false);
         List<Activo> lista = ActivoSingleTone.getInstance().obtenerActivos();
         if(lista == null){
             this.operacionesComprar.setVisible(true);
@@ -333,7 +391,6 @@ public class AppViewController {
         this.saldoInsuficienteCompra.setVisible(false);
         Usuario usuarioActual = UsuarioSingleTone.getInstance().getCurrentUser();
 
-
         //Pregunta si en efecto hay un usuario logeado, sino lo lleva a que se registre
         if(usuarioActual == null){
             this.apagarPaneles();
@@ -343,19 +400,20 @@ public class AppViewController {
 
         //Obtenemos el valor de la seleccion del comboBox
         Object activo = (Object) this.comboSeleccionActivo.getValue();
-
         Activo seleccionActivo = (Activo) activo;
-        if (usuarioActual.getSaldoInicial() >= seleccionActivo.getPrecioActual()){
+
+        if (usuarioActual.getSaldoInicial() >= seleccionActivo.getPrecioActual() * Double.parseDouble(this.cantidadaComprar.getText())){
             if(activo.getClass() == Accion.class) {
                 // Esto ocurre si la seleccion de compra es una accion
                 usuarioActual.addAccion((Accion) seleccionActivo);
-                double nuevoSaldo = usuarioActual.getSaldoInicial() - seleccionActivo.getPrecioActual();
+                double nuevoSaldo = usuarioActual.getSaldoInicial() - seleccionActivo.getPrecioActual() * Double.parseDouble(this.cantidadaComprar.getText());
                 usuarioActual.setSaldoInicial((int) nuevoSaldo);
             } else {
-                // Esto ocurre si la seleccion de compra es una cripto, (PREGUNTAR A FRAN SI EL CASTEO DE DOUBLE A INT ES VALIDO POR EL CASTEO EXPLICITO QUE DECIA EN INTERNET)
+                // Esto ocurre si la seleccion de compra es una cripto
                 usuarioActual.addCripto((Criptomoneda) seleccionActivo);
-                double nuevoSaldo = usuarioActual.getSaldoInicial() - seleccionActivo.getPrecioActual();
+                double nuevoSaldo = usuarioActual.getSaldoInicial() - seleccionActivo.getPrecioActual() * Double.parseDouble(this.cantidadaComprar.getText());
                 usuarioActual.setSaldoInicial((int) nuevoSaldo);
+
             }
         }else{
             //Si no tiene saldo muestra un mensaje de saldo insuficiente

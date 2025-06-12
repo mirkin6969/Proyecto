@@ -17,6 +17,10 @@ public class Usuario {
     private List<Activo> listaCriptomonedas;
     private List<Activo> listaAcciones;
 
+    public Usuario() {
+        listaCriptomonedas=new ArrayList<>();
+        listaAcciones = new ArrayList<>();
+    }
 
     //Getters y Setters
     public String getNombre() {
@@ -81,6 +85,32 @@ public class Usuario {
             listaCriptomonedas = new ArrayList<>();
         }
         listaCriptomonedas.add(criptomoneda);
+    }
+
+    //Funcion para quitar acciones de la lista de acciones
+    public boolean quitarAccion(Accion accion) {
+        if (listaAcciones != null && listaAcciones.contains(accion)) {
+            listaAcciones.remove(accion);
+            return true;
+        }
+        return false;
+    }
+
+    //Funcion para quitar criptomonedas de la lista de criptomonedas
+    public boolean quitarCripto(Criptomoneda criptomoneda) {
+        if (listaCriptomonedas != null && listaCriptomonedas.contains(criptomoneda)) {
+            listaCriptomonedas.remove(criptomoneda);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean tieneAccion(Accion accion) {
+        return listaAcciones != null && listaAcciones.contains(accion);
+    }
+
+    public boolean tieneCripto(Criptomoneda criptomoneda) {
+        return listaCriptomonedas != null && listaCriptomonedas.contains(criptomoneda);
     }
 
     public String toString(){

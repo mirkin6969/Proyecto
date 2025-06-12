@@ -64,7 +64,9 @@
                <children>
                   <ComboBox fx:id="comboSeleccionActivo" layoutX="53.0" layoutY="61.0" prefWidth="150.0" />
                   <Button layoutX="75.0" layoutY="139.0" mnemonicParsing="false" onAction="#onClickcomprarActivo" text="Agregar a cuenta" />
-                  <Label fx:id="saldoInsuficienteCompra" layoutX="413.0" layoutY="131.0" text="Saldo Insuficiente" textFill="RED" visible="false" />
+                  <Label fx:id="saldoInsuficienteCompra" layoutX="413.0" layoutY="131.0" text="Saldo Insuficiente" textFill="RED" />
+                  <TextField fx:id="cantidadaComprar" layoutX="264.0" layoutY="61.0" />
+                  <Label layoutX="264.0" layoutY="32.0" text="Ingrese la cantidad a comprar" />
                </children>
             </Pane>
             <Pane id="perfilPanel" fx:id="perfilPane" layoutY="-2.0" prefHeight="374.0" prefWidth="640.0" visible="false">
@@ -91,6 +93,7 @@
                   <Label layoutX="42.0" layoutY="33.0" text="Operaciones" />
                   <Button layoutX="42.0" layoutY="83.0" mnemonicParsing="false" onAction="#onSelectedcompraractivoItem" text="Comprar" />
                   <Button layoutX="42.0" layoutY="129.0" mnemonicParsing="false" onAction="#onSelectedvenderactivoItem" text="Vender" />
+                  <Label fx:id="noPoseeActivosVenta" layoutX="195.0" layoutY="133.0" text="No puede vender activos porque no posee ninguno" textFill="RED" visible="false" />
                </children>
             </Pane>
             <Pane fx:id="portafolioPane" prefHeight="374.0" prefWidth="640.0" visible="false">
@@ -126,7 +129,11 @@
             </Pane>
             <Pane fx:id="operacionesVender" prefHeight="374.0" prefWidth="640.0" visible="false">
                <children>
-                  <ComboBox fx:id="comboSeleccionActivoVenta" layoutX="59.0" layoutY="44.0" prefWidth="150.0" />
+                  <ComboBox fx:id="comboSeleccionAccionVenta" layoutX="59.0" layoutY="91.0" prefWidth="150.0" />
+                  <Button layoutX="82.0" layoutY="187.0" mnemonicParsing="false" onAction="#onClickvenderActivo" text="Vender" />
+                  <ComboBox fx:id="comboSeleccionCriptomonedaVenta" layoutX="372.0" layoutY="91.0" prefWidth="150.0" />
+                  <Label layoutX="59.0" layoutY="55.0" text="Acciones" />
+                  <Label layoutX="372.0" layoutY="55.0" text="Criptomonedas" />
                </children>
             </Pane>
             <Pane fx:id="usuarioLogIn" prefHeight="375.0" prefWidth="640.0" visible="false">
