@@ -434,6 +434,4 @@ public class AppViewController {
         this.operacionesComprar.setVisible(false);
         this.usuarioLogIn.setVisible(false);
     }
-
-
 }

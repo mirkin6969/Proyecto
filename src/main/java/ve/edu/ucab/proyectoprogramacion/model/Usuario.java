@@ -1,5 +1,6 @@
 package ve.edu.ucab.proyectoprogramacion.model;
 
+import ve.edu.ucab.proyectoprogramacion.controller.UsuarioSingleTone;
 import ve.edu.ucab.proyectoprogramacion.model.activos.Accion;
 import ve.edu.ucab.proyectoprogramacion.model.activos.Activo;
 import ve.edu.ucab.proyectoprogramacion.model.activos.Criptomoneda;
